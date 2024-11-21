@@ -1,31 +1,12 @@
-import express from "express";
+// Importa o módulo "express", que é um framework para criar servidores web no Node.js.
+import express from "express"; 
+import routes from "./src/routes/postsRoutes.js";
 
-const posts = [
-    
-    {id: 1, descricao: "Uma foto teste", imagem: "https://placecats.com/millie/300/150"},
-    {id: 2, descricao: "Gato brincando com um novelo de lã", imagem: "https://placecats.com/felix/200/300"},
-    {id: 3, descricao: "Gato brincando com um novelo de lã", imagem: "https://placecats.com/felix/200/300"}
-    
-];
-
+// Cria uma instância da aplicação "express".
 const app = express();
-app.use(express.json());
+routes(app);
 
+// Inicia o servidor na porta 3000 e exibe uma mensagem no console indicando que o servidor está ativo.
 app.listen(3000, () => {
     console.log("Servidor escutando...");
-});
-
-app.get("/posts", (req, res) => {
-    res.status(200).json(posts);
-});
-
-function buscarPostPorID(id){
-    return posts.findIndex((post) => {
-        return post.id === Number(id)
-    });
-};
-
-app.get("/posts/:id", (req, res) => {
-    const index = buscarPostPorID(req.params.id)
-    res.status(200).json(posts[index]);
 });
